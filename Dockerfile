@@ -7,9 +7,9 @@
 # https://docs.docker.com/develop/develop-images/multistage-build/
 
 FROM alpine:3.11 AS install_base_depends
-ADD ./wrapdocker /usr/local/bin/wrapdocker
+ADD ./wrapper /usr/local/bin/wrapper
 RUN set -eux; \
-    chmod a+x /usr/local/bin/wrapdocker; \
+    chmod a+x /usr/local/bin/wrapper; \
     apk --no-cache --update add \
         bash \
         iptables \
@@ -25,6 +25,6 @@ FROM install_base_depends AS install_containers
 # TODO: Get the containers in here...
 
 FROM install_containers AS run_app
-ENTRYPOINT ["wrapdocker"]
+ENTRYPOINT ["wrapper"]
 #ENTRYPOINT ["docker-compose", "up", "--force-recreate", "--build"]
 #ENTRYPOINT ["docker", "run", "-it", "hello-world"]
