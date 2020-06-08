@@ -48,13 +48,6 @@ while [[ $# > 0 ]]; do
     shift
 done
 
-# Download the wrapper at build, rather than bundle it
-rm wrapper > /dev/null
-wget https://raw.githubusercontent.com/jpetazzo/dind/master/wrapdocker -O wrapper
-sed -i '2i # Taken from: https://github.com/jpetazzo/dind/blob/master/wrapdocker' wrapper
-sed -i '3i # Copyright 2014 Jerome Petazzoni <jerome.petazzoni@docker.com>' wrapper
-chmod a+x wrapper
-
 # This step is to remove the stopped container from local docker inventory
 # Required if we want to remove the image the container depends on
 docker ps -a | grep ${IMGNAME} > /dev/null
